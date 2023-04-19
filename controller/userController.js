@@ -45,7 +45,6 @@ exports.login = async (req, res) => {
 
 exports.getAll = async (req, res) => {
  try {
-
   const data = await User.find()
   return res.status(200).json({
    status: "success",
@@ -56,5 +55,14 @@ exports.getAll = async (req, res) => {
    status: "fail",
    message: err,
   });
+ }
+};
+
+exports.getOne = async (req, res) => {
+ try {
+  const data = userService.getOne()
+  console.log(data);
+ } catch (err) {
+  console.log(err);
  }
 };
