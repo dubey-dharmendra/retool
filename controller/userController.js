@@ -20,6 +20,7 @@ const createSendToken = async (user) => {
 exports.login = async (req, res) => {
  try {
   const user = await userService.loggedIn(req.body);
+  const { password } = req.body
   if (user) {
    if (password != user.password) {
     return res.status(200).json({
@@ -31,7 +32,7 @@ exports.login = async (req, res) => {
    res.cookie('cookie', token, { maxAge: 50000, httpOnly: true })
    return res.status(200).json({
     status: "success",
-    user,
+    token,
     message: "login sucessfully",
    });
   } else {
