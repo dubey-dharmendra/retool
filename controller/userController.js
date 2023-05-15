@@ -20,8 +20,13 @@ const createSendToken = async (user) => {
 exports.login = async (req, res) => {
  try {
   const user = await userService.loggedIn(req.body);
-
   if (user) {
+   if (password != user.password) {
+    return res.status(200).json({
+     status: "fail",
+     message: "Invalid credential",
+    });
+   }
    const token = await createSendToken(user, 201, res);
    res.cookie('cookie', token, { maxAge: 50000, httpOnly: true })
    return res.status(200).json({
@@ -32,7 +37,7 @@ exports.login = async (req, res) => {
   } else {
    res.status(400).json({
     status: "fail",
-    message: 'Invalid Credentials',
+    message: `User doesn't exists `,
    });
   }
  } catch (err) {
