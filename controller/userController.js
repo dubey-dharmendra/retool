@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
    res.cookie('cookie', token, { maxAge: 50000, httpOnly: true })
    return res.status(200).json({
     status: "success",
-    token,
+    user,
     message: "login sucessfully",
    });
   } else {
